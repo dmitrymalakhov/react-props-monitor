@@ -9,7 +9,7 @@ propsFortuneteller(React);
 
 window.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Root title="TEST" />,
+    <Root />,
     container
   );
 });
