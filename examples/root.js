@@ -11,11 +11,13 @@ class Root extends PureComponent {
     this.state = {
       title: 'Title as String',
     };
+
+    this._handleClick = this._handleClick.bind(this);
   }
 
   _handleClick() {
     this.setState({
-      title: 5,
+      title: this.state.title === 5 ? 'Title as String' : 5,
     });
   }
 
@@ -23,7 +25,7 @@ class Root extends PureComponent {
     return (
       <div>
         <TextBox title={this.state.title} />
-        <button>Click Me!</button>
+        <button onClick={this._handleClick}>Click Me!</button>
       </div>
     );
   }

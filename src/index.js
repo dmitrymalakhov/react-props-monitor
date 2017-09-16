@@ -7,26 +7,27 @@ window[CHANNEL] = new Map();
 const defaultExclude = ['TopLevelWrapper'];
 
 const propsCollector = (type, nextProps, { exclude }) => {
-  const { displayName } = type;
+  const name = type.displayName || type.name;
 
   if (
-    !displayName ||
-    (exclude && exclude.includes(displayName)) ||
-    defaultExclude.includes(displayName)
+    !name ||
+    !nextProps ||
+    (exclude && exclude.includes(name)) ||
+    defaultExclude.includes(name)
   )
     return;
 
-  if (window[CHANNEL].has(displayName)) {
-    const propsSnapshots = window[CHANNEL].get(displayName),
-      equalsFn = prevProps => R.equals(prevProps, nextProps),
-      notNeededSnapshot = R.find(equalsFn)(propsSnapshots);
+  if (window[CHANNEL].has(name)) {
+    const propsSnapshots = window[CHANNEL].get(name),
+      len = propsSnapshots.length,
+      notNeededSnapshot = R.equals(propsSnapshots[len - 1], nextProps);
 
     if (!notNeededSnapshot) {
       propsSnapshots.push(nextProps);
-      window[CHANNEL].set(displayName, propsSnapshots);
+      window[CHANNEL].set(name, propsSnapshots);
     }
   } else {
-    window[CHANNEL].set(displayName, [nextProps]);
+    window[CHANNEL].set(name, [nextProps]);
   }
 };
 
