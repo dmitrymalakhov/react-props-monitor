@@ -12,6 +12,9 @@ window[CHANNEL] = new Map();
 const defaultExclude = ['TopLevelWrapper'];
 
 const propsCollector = (type, nextProps, { exclude }) => {
+  if (!type)
+    return;
+
   const name = type.displayName || type.name;
 
   if (

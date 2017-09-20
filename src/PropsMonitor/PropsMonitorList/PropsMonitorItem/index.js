@@ -5,6 +5,10 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
+import {
+  PropsMonitorItemStyled,
+  PropsMonitorItemButtonStyled,
+} from './styled';
 
 class PropsMonitorList extends PureComponent {
   constructor(props) {
@@ -22,11 +26,15 @@ class PropsMonitorList extends PureComponent {
     const { name } = this.props;
 
     return (
-      <li>
-        <a onClick={this._handleClick}>{ name }</a>
-      </li>
+      <PropsMonitorItemStyled>
+        <PropsMonitorItemButtonStyled onClick={this._handleClick}>
+          { name }
+        </PropsMonitorItemButtonStyled>
+      </PropsMonitorItemStyled>
     );
   }
 }
+
+PropsMonitorList.displayName = 'PropsMonitorList';
 
 export default PropsMonitorList;

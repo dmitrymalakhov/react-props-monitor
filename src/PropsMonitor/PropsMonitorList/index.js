@@ -6,6 +6,7 @@
 
 import React, { PureComponent } from 'react';
 import PropsMonitorItem from './PropsMonitorItem';
+import { PropsMonitorListStyled } from './styled';
 
 class PropsMonitorList extends PureComponent {
   _renderPropsMonitorItems() {
@@ -26,9 +27,9 @@ class PropsMonitorList extends PureComponent {
     const propsMonitorItems = this._renderPropsMonitorItems();
 
     return (
-      <ul>
+      <PropsMonitorListStyled>
         { propsMonitorItems }
-      </ul>
+      </PropsMonitorListStyled>
     );
   }
 }

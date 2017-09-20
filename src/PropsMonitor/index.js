@@ -5,8 +5,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropsMonitorStyled from './styled/PropsMonitorStyled';
 import PropsMonitorList from './PropsMonitorList';
+import { PropsMonitorStyled } from './styled';
 import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
