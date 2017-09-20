@@ -1,3 +1,9 @@
+/**
+ * @author Dmitry Malakhov
+ */
+
+'use strict';
+
 import React from 'react';
 
 const TextBox = props => (

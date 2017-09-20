@@ -1,8 +1,14 @@
+/**
+ * @author Dmitry Malakhov
+ */
+
+'use strict';
+
 import React, { PureComponent } from 'react';
 import TextBox from './components/TextBox';
-import propsFortuneteller from '../src';
+import initPropsFortuneteller, { PropsMonitor } from '../src';
 
-propsFortuneteller(React);
+initPropsFortuneteller(React);
 
 class Root extends PureComponent {
   constructor(props) {
@@ -26,6 +32,7 @@ class Root extends PureComponent {
       <div>
         <TextBox title={this.state.title} />
         <button onClick={this._handleClick}>Click Me!</button>
+        <PropsMonitor />
       </div>
     );
   }

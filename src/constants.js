@@ -1,0 +1,1 @@
+export const CHANNEL = '__REACT_PROPS_FORTUNETELLER_';
