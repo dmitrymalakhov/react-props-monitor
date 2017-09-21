@@ -1,1 +1,1 @@
-export const CHANNEL = '__REACT_PROPS_FORTUNETELLER_';
+export const CHANNEL = '__REACT_DEVTOOLS_PROPS_MONITOR__';

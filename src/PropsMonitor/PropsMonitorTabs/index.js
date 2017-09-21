@@ -5,48 +5,57 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import styled from 'styled-components';
 
-const PropsMonitorTabsStyled = styled.div`
-  width: calc(100% - 250px);
-`;
+import {
+  PropsMonitorTabsStyled,
+  PropsMonitorTabsListStyled,
+} from './styled';
 
-const PropsMonitorTabsListStyled = styled.div`
-  background-color: #ECEFF7;
-  display: flex;
-  justify-content: flex-start;
-`;
-
-const PropsMonitorTabStyled = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  user-select: none;
-  position: relative;
-  font-size: 13px;
-  line-height: 1.25;
-  text-transform: uppercase;
-  min-height: 48px;
-  min-width: 120px;
-  max-width: 320px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-`;
+import PropsMonitorTab from './PropsMonitorTab';
 
 class PropsMonitorTabs extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tabName: Object.keys(props.tabs)[0],
+    }
+
+    this._handleOnClickTab = this._handleOnClickTab.bind(this);
+  }
+
+  _handleOnClickTab(tabName) {
+    this.setState({
+      tabName,
+    });
+  }
+
+  _renderTabs() {
+    const { tabs } = this.props;
+
+    if (!tabs)
+      return null;
+
+    return Object.keys(tabs).map(name => (
+      <PropsMonitorTab
+        key={name}
+        name={name}
+        onClick={this._handleOnClickTab}
+      />
+    ));
+  }
+
   render() {
+    const content = this.props.tabs[this.state.tabName];
+
+    const tabs = this._renderTabs();
+
     return (
       <PropsMonitorTabsStyled>
         <PropsMonitorTabsListStyled>
-          <PropsMonitorTabStyled>
-            Tab1
-          </PropsMonitorTabStyled>
-          <PropsMonitorTabStyled>
-            Tab2
-          </PropsMonitorTabStyled>
+          {tabs}
         </PropsMonitorTabsListStyled>
+        {content}
       </PropsMonitorTabsStyled>
     );
   }

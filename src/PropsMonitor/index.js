@@ -12,6 +12,11 @@ import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
 
+const tabs = {
+  history: <div>history</div>,
+  forecast: <div>forecast</div>,
+};
+
 class PropsMonitor extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +47,7 @@ class PropsMonitor extends Component {
     return (
       <PropsMonitorStyled active={active}>
         <PropsMonitorList components={window[CHANNEL]} />
-        <PropsMonitorTabs />
+        <PropsMonitorTabs tabs={tabs} />
       </PropsMonitorStyled>
     );
   }
