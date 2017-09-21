@@ -12,11 +12,27 @@ const PropsMonitorTabsStyled = styled.div`
 `;
 
 const PropsMonitorTabsListStyled = styled.div`
-
+  background-color: #ECEFF7;
+  display: flex;
+  justify-content: flex-start;
 `;
 
-const PropsMonitorTabStyled = styled.button`
-
+const PropsMonitorTabStyled = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  min-height: 48px;
+  min-width: 120px;
+  max-width: 320px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 `;
 
 class PropsMonitorTabs extends PureComponent {

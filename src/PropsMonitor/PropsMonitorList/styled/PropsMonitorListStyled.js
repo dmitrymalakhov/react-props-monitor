@@ -9,9 +9,8 @@ import styled from 'styled-components';
 const PropsMonitorItemStyled = styled.menu`
   width: 250px;
   margin: 0;
+  padding: 0;
   list-style-type: none;
-  padding: 8px 0;
-  padding-top: 0;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -23,6 +22,7 @@ const PropsMonitorItemStyled = styled.menu`
   background-color: #ffffff;
   min-height: 40px;
   line-height: 1.5;
+  z-index: 2;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
 `;
 
