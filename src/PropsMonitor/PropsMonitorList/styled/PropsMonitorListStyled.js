@@ -7,9 +7,7 @@
 import styled from 'styled-components';
 
 const PropsMonitorItemStyled = styled.menu`
-  display: block;
-  min-width: 200px;
-  max-width: 300px;
+  width: 250px;
   margin: 0;
   list-style-type: none;
   padding: 8px 0;
@@ -17,12 +15,11 @@ const PropsMonitorItemStyled = styled.menu`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  position: fixed;
+  flex-grow: 1;
   height: 100%;
   max-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  width: 250px;
   background-color: #ffffff;
   min-height: 40px;
   line-height: 1.5;

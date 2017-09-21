@@ -7,14 +7,12 @@
 import styled from 'styled-components';
 
 const display = ({ active }) => `
-  display: ${active ? 'block' : 'none'};
+  display: ${active ? 'flex' : 'none'};
 `;
 
 const PropsMonitorStyled = styled.div`
   font-family: Roboto, sans-serif;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  flex-direction: row;
   position: fixed;
   right: 0;
   top: 0;

@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import PropsMonitorList from './PropsMonitorList';
+import PropsMonitorTabs from './PropsMonitorTabs';
 import { PropsMonitorStyled } from './styled';
 import { CHANNEL } from '../constants';
 
@@ -41,6 +42,7 @@ class PropsMonitor extends Component {
     return (
       <PropsMonitorStyled active={active}>
         <PropsMonitorList components={window[CHANNEL]} />
+        <PropsMonitorTabs />
       </PropsMonitorStyled>
     );
   }
