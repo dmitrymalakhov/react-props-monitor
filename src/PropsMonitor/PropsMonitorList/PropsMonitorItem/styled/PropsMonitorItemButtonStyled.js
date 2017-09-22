@@ -6,6 +6,12 @@
 
 import styled from 'styled-components';
 
+const active = ({ active }) => active
+  ? `
+    background-color: #ECEFF7;
+  `
+  : null;
+
 const PropsMonitorItemButtonStyled = styled.a`
   width: 100%;
   margin: 0;
@@ -19,6 +25,7 @@ const PropsMonitorItemButtonStyled = styled.a`
   transition-duration: 300ms;
   transition-timing-function: ease-out;
   transition-delay: 0ms;
+  ${active}
 
   &:hover,
   &:focus {

@@ -11,11 +11,13 @@ import { noop } from '../../utils';
 
 const propTypes = {
   name: PropTypes.string,
+  active: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 const defaultProps = {
   name: '',
+  active: false,
   onClick: noop,
 };
 
@@ -31,8 +33,10 @@ class PropsMonitorTab extends PureComponent {
   }
 
   render() {
+    const { active } = this.props;
+
     return (
-      <PropsMonitorTabStyled onClick={this._handleOnClick}>
+      <PropsMonitorTabStyled active={active} onClick={this._handleOnClick}>
         {this.props.name}
       </PropsMonitorTabStyled>
     );

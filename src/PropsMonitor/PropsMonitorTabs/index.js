@@ -5,13 +5,27 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   PropsMonitorTabsStyled,
   PropsMonitorTabsListStyled,
+  PropsMonitorTabsContentStyled,
 } from './styled';
 
 import PropsMonitorTab from './PropsMonitorTab';
+
+const propTypes = {
+  tabs: PropTypes.objectOf(
+    PropTypes.element,
+  ),
+};
+
+const defaultProps = {
+  tabs: {
+    name: <div />,
+  },
+};
 
 class PropsMonitorTabs extends PureComponent {
   constructor(props) {
@@ -19,7 +33,7 @@ class PropsMonitorTabs extends PureComponent {
 
     this.state = {
       tabName: Object.keys(props.tabs)[0],
-    }
+    };
 
     this._handleOnClickTab = this._handleOnClickTab.bind(this);
   }
@@ -31,13 +45,15 @@ class PropsMonitorTabs extends PureComponent {
   }
 
   _renderTabs() {
-    const { tabs } = this.props;
+    const { tabs } = this.props,
+      { tabName } = this.state;
 
     if (!tabs)
       return null;
 
     return Object.keys(tabs).map(name => (
       <PropsMonitorTab
+        active={name === tabName}
         key={name}
         name={name}
         onClick={this._handleOnClickTab}
@@ -55,10 +71,16 @@ class PropsMonitorTabs extends PureComponent {
         <PropsMonitorTabsListStyled>
           {tabs}
         </PropsMonitorTabsListStyled>
-        {content}
+        <PropsMonitorTabsContentStyled>
+          {content}
+        </PropsMonitorTabsContentStyled>
       </PropsMonitorTabsStyled>
     );
   }
 }
+
+PropsMonitorTabs.propTypes = propTypes;
+PropsMonitorTabs.defaultProps = defaultProps;
+PropsMonitorTabs.displayName = 'PropsMonitorTabs';
 
 export default PropsMonitorTabs;

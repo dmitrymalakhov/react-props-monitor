@@ -5,6 +5,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import JSONTree from 'react-json-tree';
 import PropsMonitorList from './PropsMonitorList';
 import PropsMonitorTabs from './PropsMonitorTabs';
 import { PropsMonitorStyled } from './styled';
@@ -12,20 +13,17 @@ import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
 
-const tabs = {
-  history: <div>history</div>,
-  forecast: <div>forecast</div>,
-};
-
 class PropsMonitor extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       active: false,
+      currentComponent: void 0,
     };
 
     this._handleKeydown = this._handleKeydown.bind(this);
+    this._handleChangeComponent = this._handleChangeComponent.bind(this);
   }
 
   componentDidMount() {
@@ -36,17 +34,43 @@ class PropsMonitor extends Component {
     window.removeEventListener('keydown', this._handleKeydown);
   }
 
+  _getHistoryContent() {
+    const { currentComponent } = this.state;
+
+    if (!currentComponent)
+      return <div>history</div>;
+
+    return window[CHANNEL].get(currentComponent).map((data, idx) => (
+      <JSONTree key={idx} data={data} />
+    ));
+  }
+
   _handleKeydown({ keyCode, ctrlKey }) {
     if (keyCode === KEY_CODE_I && ctrlKey)
       this.setState({ active: !this.state.active });
   }
 
+  _handleChangeComponent({ value }) {
+    this.setState({
+      currentComponent: value,
+    });
+  }
+
   render() {
-    const { active } = this.state;
+    const { active, currentComponent } = this.state;
+
+    const tabs = {
+      history: this._getHistoryContent(),
+      forecast: <div>forecast</div>,
+    };
 
     return (
       <PropsMonitorStyled active={active}>
-        <PropsMonitorList components={window[CHANNEL]} />
+        <PropsMonitorList
+          defaultValue={currentComponent}
+          components={window[CHANNEL]}
+          onChange={this._handleChangeComponent}
+        />
         <PropsMonitorTabs tabs={tabs} />
       </PropsMonitorStyled>
     );

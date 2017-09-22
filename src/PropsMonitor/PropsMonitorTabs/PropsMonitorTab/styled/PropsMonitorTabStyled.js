@@ -6,6 +6,23 @@
 
 import styled from 'styled-components';
 
+const active = ({ active }) => active
+  ? `
+    &:after {
+      display: block;
+      content: '';
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      background-color: #d9003f;
+      height: 4px;
+    }
+  `
+  : null;
+
+
 const PropsMonitorTabStyled = styled.a`
   display: flex;
   align-items: center;
@@ -27,6 +44,7 @@ const PropsMonitorTabStyled = styled.a`
   transition-timing-function: ease-out;
   transition-delay: 0ms;
   cursor: pointer;
+  ${active}
 
   &:hover {
     color: #212121;
@@ -34,6 +52,8 @@ const PropsMonitorTabStyled = styled.a`
     font-weight: 400;
     opacity: 0.9;
   }
+
+
 `;
 
 PropsMonitorTabStyled.displayName = 'PropsMonitorTabStyled';

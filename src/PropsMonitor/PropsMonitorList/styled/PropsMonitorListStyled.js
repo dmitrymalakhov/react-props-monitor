@@ -23,7 +23,8 @@ const PropsMonitorItemStyled = styled.menu`
   min-height: 40px;
   line-height: 1.5;
   z-index: 2;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
 `;
 
 PropsMonitorItemStyled.displayName = 'PropsMonitorItemStyled';

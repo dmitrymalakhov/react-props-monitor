@@ -9,7 +9,21 @@ import { CHANNEL } from './constants';
 
 window[CHANNEL] = new Map();
 
-const defaultExclude = ['TopLevelWrapper'];
+const defaultExclude = [
+  'TopLevelWrapper',
+  'PropsMonitorList',
+  'PropsMonitorTab',
+  'PropsMonitorTabs',
+  'SidebarBoxStyled',
+  'PropsMonitorItemButtonStyled',
+  'PropsMonitorTabStyled',
+  'JSONTree',
+  'JSONNode',
+  'JSONObjectNode',
+  'JSONNestedNode',
+  'JSONArrow',
+  'JSONValueNode',
+];
 
 const propsCollector = (type, nextProps, { exclude }) => {
   if (!type)

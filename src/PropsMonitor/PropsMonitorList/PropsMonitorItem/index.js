@@ -5,10 +5,26 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   PropsMonitorItemStyled,
   PropsMonitorItemButtonStyled,
 } from './styled';
+
+import { noop } from '../../utils';
+
+const propTypes = {
+  name: PropTypes.string,
+  active: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+const defaultProps = {
+  name: '',
+  active: false,
+  onClick: noop,
+};
 
 class PropsMonitorList extends PureComponent {
   constructor(props) {
@@ -19,15 +35,18 @@ class PropsMonitorList extends PureComponent {
 
   _handleClick() {
     const { name, onClick } = this.props;
-    onClick(name);
+    onClick({ value: name });
   }
 
   render() {
-    const { name } = this.props;
+    const { name, active } = this.props;
 
     return (
       <PropsMonitorItemStyled>
-        <PropsMonitorItemButtonStyled onClick={this._handleClick}>
+        <PropsMonitorItemButtonStyled
+          active={active}
+          onClick={this._handleClick}
+        >
           { name }
         </PropsMonitorItemButtonStyled>
       </PropsMonitorItemStyled>
@@ -35,6 +54,8 @@ class PropsMonitorList extends PureComponent {
   }
 }
 
+PropsMonitorList.propTypes = propTypes;
+PropsMonitorList.defaultProps = defaultProps;
 PropsMonitorList.displayName = 'PropsMonitorList';
 
 export default PropsMonitorList;

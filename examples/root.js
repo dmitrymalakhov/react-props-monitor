@@ -18,12 +18,26 @@ class Root extends PureComponent {
       title: 'Title as String',
     };
 
-    this._handleClick = this._handleClick.bind(this);
+    this._handleClickBoolean = this._handleClickBoolean.bind(this);
+    this._handleClickString = this._handleClickString.bind(this);
+    this._handleClickNumber = this._handleClickNumber.bind(this);
   }
 
-  _handleClick() {
+  _handleClickBoolean() {
     this.setState({
-      title: this.state.title === 5 ? 'Title as String' : 5,
+      title: true,
+    });
+  }
+
+  _handleClickString() {
+    this.setState({
+      title: 'The pen is mightier than the sword',
+    });
+  }
+
+  _handleClickNumber() {
+    this.setState({
+      title: 1000000,
     });
   }
 
@@ -31,7 +45,9 @@ class Root extends PureComponent {
     return (
       <div>
         <TextBox title={this.state.title} />
-        <button onClick={this._handleClick}>Click Me!</button>
+        <button onClick={this._handleClickBoolean}>SetBoolean</button>
+        <button onClick={this._handleClickString}>SetString</button>
+        <button onClick={this._handleClickNumber}>SetNumber</button>
         <PropsMonitor />
       </div>
     );

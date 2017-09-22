@@ -1,1 +1,1 @@
-export { default as PropsMonitorStyled } from './PropsMonitorStyled'; 
+export { default as PropsMonitorStyled } from './PropsMonitorStyled';
