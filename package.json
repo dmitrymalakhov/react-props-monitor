@@ -1,8 +1,11 @@
 {
-  "name": "react-props-fortuneteller",
+  "name": "react-props-monitor",
   "version": "0.0.1",
   "main": "index.js",
-  "repository": "https://github.com/dmitrymalakhov/react-props-fortuneteller.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dmitrymalakhov/react-props-monitor.git"
+  },
   "author": "Dmitry Malakhov <dmitrii.malakhov@gmail.com>",
   "license": "MIT",
   "scripts": {

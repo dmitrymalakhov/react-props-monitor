@@ -6,9 +6,9 @@
 
 import React, { PureComponent } from 'react';
 import TextBox from './components/TextBox';
-import initPropsFortuneteller, { PropsMonitor } from '../src';
+import initPropsMonitor, { PropsMonitor } from '../';
 
-initPropsFortuneteller(React);
+initPropsMonitor(React);
 
 class Root extends PureComponent {
   constructor(props) {
