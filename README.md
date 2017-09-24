@@ -1,6 +1,6 @@
 # react-props-monitor
 
-Simple solution to analysis props in your React project.
+Analysis props in any React app.
 
 ### Install
 
@@ -36,3 +36,8 @@ render() {
 ```
 
 **ctrl+i** to open a monitor.
+
+### Coming soon
+
+- custom error handler
+- forecast for types based on real props in runtime

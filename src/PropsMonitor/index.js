@@ -61,7 +61,7 @@ class PropsMonitor extends Component {
 
     const tabs = {
       history: this._getHistoryContent(),
-      forecast: <div>forecast</div>,
+      forecast: <div>coming soon</div>,
     };
 
     return (
