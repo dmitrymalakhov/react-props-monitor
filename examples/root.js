@@ -6,7 +6,7 @@
 
 import React, { PureComponent } from 'react';
 import TextBox from './components/TextBox';
-import initPropsMonitor, { PropsMonitor } from '../';
+import initPropsMonitor, { PropsMonitor } from '../src';
 
 initPropsMonitor(React);
 
