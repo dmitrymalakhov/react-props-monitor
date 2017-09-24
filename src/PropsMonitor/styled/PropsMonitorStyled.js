@@ -23,6 +23,7 @@ const PropsMonitorStyled = styled.div`
   width: 40%;
   border: 1px solid rgb(232, 232, 232);
   backgroud: white;
+  z-index: 9999;
   ${display}
 `;
 
