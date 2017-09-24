@@ -7,14 +7,16 @@
 import React, { Component } from 'react';
 import JSONTree from 'react-json-tree';
 import styled from 'styled-components';
+import R from 'ramda';
 import PropsMonitorList from './PropsMonitorList';
 import PropsMonitorTabs from './PropsMonitorTabs';
+import PropMonitorCheckbox from './PropMonitorCheckbox';
 import { PropsMonitorStyled } from './styled';
 import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
 
-const DefaultContentStyled = styled.div`
+const ContentStyled = styled.div`
   padding: 10px;
 `;
 
@@ -46,10 +48,12 @@ class PropsMonitor extends Component {
     this.state = {
       active: false,
       currentComponent: void 0,
+      uniqueProps: false,
     };
 
     this._handleKeydown = this._handleKeydown.bind(this);
     this._handleChangeComponent = this._handleChangeComponent.bind(this);
+    this._handleChangeUniq = this._handleChangeUniq.bind(this);
   }
 
   componentDidMount() {
@@ -61,19 +65,43 @@ class PropsMonitor extends Component {
   }
 
   _getHistoryContent() {
-    const { currentComponent } = this.state;
+    const { currentComponent, uniqueProps } = this.state;
 
     if (!currentComponent) {
       return (
-        <DefaultContentStyled>
+        <ContentStyled>
           Please select component from list
-        </DefaultContentStyled>
+        </ContentStyled>
       );
     }
 
-    return window[CHANNEL].get(currentComponent).map((data, idx) => (
+    const fns = [something => something];
+
+    if (uniqueProps)
+      fns.push(R.uniq);
+
+    const filtered = R.compose(...fns)(window[CHANNEL].get(currentComponent));
+
+    const propsList = filtered.map((data, idx) => (
       <JSONTree key={idx} theme={theme} data={data} />
     ));
+
+    return (
+      <ContentStyled>
+        <PropMonitorCheckbox
+          label="Unique"
+          defaultChecked={uniqueProps}
+          onChange={this._handleChangeUniq}
+        />
+        {propsList}
+      </ContentStyled>
+    );
+  }
+
+  _handleChangeUniq({ checked }) {
+    this.setState({
+      uniqueProps: checked,
+    });
   }
 
   _handleKeydown({ keyCode, ctrlKey }) {
@@ -92,7 +120,7 @@ class PropsMonitor extends Component {
 
     const tabs = {
       history: this._getHistoryContent(),
-      forecast: <DefaultContentStyled>Coming soon</DefaultContentStyled>,
+      forecast: <ContentStyled>Coming soon</ContentStyled>,
     };
 
     return (

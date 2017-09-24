@@ -17,6 +17,7 @@ const defaultExclude = [
   'SidebarBoxStyled',
   'PropsMonitorItemButtonStyled',
   'PropsMonitorTabStyled',
+  'PropMonitorCheckbox',
   'JSONTree',
   'JSONNode',
   'JSONObjectNode',
