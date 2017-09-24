@@ -35,7 +35,9 @@ render() {
 
 ```
 
-**ctrl+i** to open a monitor.
+**ctrl+i to open a monitor.**
+
+![react-props-monitor](docs/demo.gif)
 
 ### Coming soon
 
