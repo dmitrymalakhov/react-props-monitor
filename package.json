@@ -20,6 +20,11 @@
     "lint:style": "stylelint './shared/**/styled/*.js'",
     "prepublishOnly": "rimraf ./lib && babel ./src --out-dir ./lib"
   },
+  "keywords": [
+    "react",
+    "prop-types",
+    "monitor"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

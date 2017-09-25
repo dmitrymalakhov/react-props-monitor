@@ -42,4 +42,5 @@ render() {
 ### Coming soon
 
 - custom error handler
+- define and lock props
 - forecast for types based on real props in runtime
