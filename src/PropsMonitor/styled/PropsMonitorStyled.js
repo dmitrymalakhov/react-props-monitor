@@ -20,9 +20,8 @@ const PropsMonitorStyled = styled.div`
   max-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  width: 40%;
+  width: 700px;
   border: 1px solid rgb(232, 232, 232);
-  backgroud: white;
   z-index: 9999;
   ${display}
 `;
