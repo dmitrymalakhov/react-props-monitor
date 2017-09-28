@@ -5,13 +5,18 @@
 'use strict';
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import JSONTree from 'react-json-tree';
 import styled from 'styled-components';
 import R from 'ramda';
 import PropsMonitorList from './PropsMonitorList';
 import PropsMonitorTabs from './PropsMonitorTabs';
 import PropMonitorCheckbox from './PropMonitorCheckbox';
-import { PropsMonitorStyled } from './styled';
+import {
+  PropsMonitorStyled,
+  PropsMonitorToolbarStyled,
+  PropsMonitorProblemMessageStyled,
+} from './styled';
 import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
@@ -80,19 +85,61 @@ class PropsMonitor extends Component {
     if (uniqueProps)
       fns.push(R.uniq);
 
-    const filtered = R.compose(...fns)(window[CHANNEL].get(currentComponent));
+    const props = window[CHANNEL].props.get(currentComponent),
+      types = window[CHANNEL].types.get(currentComponent);
 
-    const propsList = filtered.map((data, idx) => (
-      <JSONTree key={idx} theme={theme} data={data} />
-    ));
+    const filtered =
+      R.compose(...fns)(props);
+
+    let problemCount = 0;
+
+    const propsList = filtered.map((data, idx) => {
+      const errorMessages = [];
+
+      /* eslint-disable no-console */
+      if (types) {
+        const _originalConsoleError = console.error,
+          hash = Math.random();
+
+        console.error = e => { errorMessages.push(e.replace(hash, '')); };
+
+        PropTypes.checkPropTypes(
+          types,
+          data,
+          'prop',
+          `${currentComponent}${hash}`,
+        );
+
+        console.error = _originalConsoleError;
+      }
+      /* eslint-enable no-console */
+
+      const errors = errorMessages.map(msg => (
+        <PropsMonitorProblemMessageStyled key={msg}>
+          {msg}
+        </PropsMonitorProblemMessageStyled>
+      ));
+
+      problemCount += errorMessages.length;
+
+      return (
+        <div key={idx}>
+          {errors}
+          <JSONTree theme={theme} data={data} />
+        </div>
+      );
+    });
 
     return (
       <ContentStyled>
-        <PropMonitorCheckbox
-          label="Unique"
-          defaultChecked={uniqueProps}
-          onChange={this._handleChangeUniq}
-        />
+        <PropsMonitorToolbarStyled>
+          <PropMonitorCheckbox
+            label="Unique"
+            defaultChecked={uniqueProps}
+            onChange={this._handleChangeUniq}
+          />
+          {`Problems: ${problemCount}`}
+        </PropsMonitorToolbarStyled>
         {propsList}
       </ContentStyled>
     );
@@ -127,7 +174,7 @@ class PropsMonitor extends Component {
       <PropsMonitorStyled active={active}>
         <PropsMonitorList
           defaultValue={currentComponent}
-          components={window[CHANNEL]}
+          components={window[CHANNEL].props}
           onChange={this._handleChangeComponent}
         />
         <PropsMonitorTabs tabs={tabs} />

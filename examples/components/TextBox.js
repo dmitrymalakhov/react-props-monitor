@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  title: PropTypes.oneOf([
+  title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),

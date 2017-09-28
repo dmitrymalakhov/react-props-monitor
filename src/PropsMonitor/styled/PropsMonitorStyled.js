@@ -26,6 +26,6 @@ const PropsMonitorStyled = styled.div`
   ${display}
 `;
 
-PropsMonitorStyled.displayName = 'SidebarBoxStyled';
+PropsMonitorStyled.displayName = 'PropsMonitorStyled';
 
 export default PropsMonitorStyled;

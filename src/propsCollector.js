@@ -7,7 +7,10 @@
 import R from 'ramda';
 import { CHANNEL } from './constants';
 
-window[CHANNEL] = new Map();
+window[CHANNEL] = {
+  props: new Map(),
+  types: new Map(),
+};
 
 const defaultExclude = [
   'TopLevelWrapper',
@@ -18,6 +21,8 @@ const defaultExclude = [
   'PropsMonitorItemButtonStyled',
   'PropsMonitorTabStyled',
   'PropMonitorCheckbox',
+  'PropsMonitorStyled',
+  'PropsMonitorProblemMessageStyled',
   'JSONTree',
   'JSONNode',
   'JSONObjectNode',
@@ -40,17 +45,18 @@ const propsCollector = (type, nextProps, { exclude }) => {
   )
     return;
 
-  if (window[CHANNEL].has(name)) {
-    const propsSnapshots = window[CHANNEL].get(name),
+  if (window[CHANNEL].props.has(name)) {
+    const propsSnapshots = window[CHANNEL].props.get(name),
       len = propsSnapshots.length,
       notNeededSnapshot = R.equals(propsSnapshots[len - 1], nextProps);
 
     if (!notNeededSnapshot) {
       propsSnapshots.push(nextProps);
-      window[CHANNEL].set(name, propsSnapshots);
+      window[CHANNEL].props.set(name, propsSnapshots);
     }
   } else {
-    window[CHANNEL].set(name, [nextProps]);
+    window[CHANNEL].props.set(name, [nextProps]);
+    window[CHANNEL].types.set(name, type.propTypes);
   }
 };
 
