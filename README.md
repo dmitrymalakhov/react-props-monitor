@@ -35,9 +35,13 @@ render() {
 
 ```
 
-**ctrl+i to open a monitor.**
+> **ctrl+i** to open a monitor.
 
 ![react-props-monitor](docs/demo.gif)
+
+### Error catch
+
+PropsMonitor displays exactly which props caused the error on based PropTypes of component.
 
 ### Coming soon
 
