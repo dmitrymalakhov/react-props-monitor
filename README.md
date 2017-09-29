@@ -1,5 +1,7 @@
 # react-props-monitor
 
+[![npm](https://img.shields.io/npm/dm/react-props-monitor.svg)](https://www.npmjs.com/package/react-props-monitor)
+
 Analysis props in any React app.
 
 ### Install
