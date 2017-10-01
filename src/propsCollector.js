@@ -23,6 +23,7 @@ const defaultExclude = [
   'PropMonitorCheckbox',
   'PropsMonitorStyled',
   'PropsMonitorProblemMessageStyled',
+  'PropsMonitor',
   'JSONTree',
   'JSONNode',
   'JSONObjectNode',

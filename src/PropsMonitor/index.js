@@ -12,11 +12,13 @@ import R from 'ramda';
 import PropsMonitorList from './PropsMonitorList';
 import PropsMonitorTabs from './PropsMonitorTabs';
 import PropMonitorCheckbox from './PropMonitorCheckbox';
+
 import {
   PropsMonitorStyled,
   PropsMonitorToolbarStyled,
   PropsMonitorProblemMessageStyled,
 } from './styled';
+
 import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
@@ -44,6 +46,16 @@ const theme = {
   base0D: '#3971ED',
   base0E: '#A36AC7',
   base0F: '#3971ED',
+};
+
+const propTypes = {
+  validation: PropTypes.arrayOf(
+    PropTypes.func,
+  ),
+};
+
+const defaultProps = {
+  validation: [],
 };
 
 class PropsMonitor extends Component {
@@ -91,7 +103,8 @@ class PropsMonitor extends Component {
     const filtered =
       R.compose(...fns)(props);
 
-    let problemCount = 0;
+    let problemCount = 0,
+      prevProps = null;
 
     const propsList = filtered.map((data, idx) => {
       const errorMessages = [];
@@ -114,13 +127,32 @@ class PropsMonitor extends Component {
       }
       /* eslint-enable no-console */
 
-      const errors = errorMessages.map(msg => (
+      const opt = {
+        prevProps,
+        nextProps: data,
+        name: currentComponent,
+      };
+
+      const validator = R.juxt(this.props.validation),
+        filterNotValid = value => R.filter(item => item, value),
+        concatWithAnotherErrors = value => R.concat(errorMessages, value);
+
+      const createMessage = msg => (
         <PropsMonitorProblemMessageStyled key={msg}>
           {msg}
         </PropsMonitorProblemMessageStyled>
-      ));
+      );
 
-      problemCount += errorMessages.length;
+      const mapMessageToComponent = errors => R.map(createMessage, errors);
+
+      const errors = R.compose(
+        mapMessageToComponent,
+        concatWithAnotherErrors,
+        filterNotValid,
+      )(validator(opt));
+
+      problemCount += errors.length;
+      prevProps = data;
 
       return (
         <div key={idx}>
@@ -183,6 +215,8 @@ class PropsMonitor extends Component {
   }
 }
 
+PropsMonitor.propTypes = propTypes;
+PropsMonitor.defaultProps = defaultProps;
 PropsMonitor.displayName = 'PropsMonitor';
 
 export default PropsMonitor;
