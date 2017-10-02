@@ -45,30 +45,30 @@ render() {
 
 ### PropTypes
 
-PropsMonitor displays exactly which props caused the error on based PropTypes of component.
+PropsMonitor displays exactly which props caused the error based on PropTypes of component.
 
 ### Custom validation function
 
 You can define any validation function for props, based on prevProps, nextProps and name of component.
 
 ```javascript
-const titleIsVerySmallNumber = ({ nextProps }) => {
-  if (nextProps.title < 2000000)
-    return 'Caution your title prop is small a number.';
+const costIsVerySmallNumber = ({ nextProps }) => {
+  if (nextProps.value < 2000000)
+    return 'Caution your cost prop is small a number.';
 
   return false;
 };
 
-const titleShouldIncrease = ({ prevProps, nextProps, name }) => {
-  if (name === 'TextBox' && prevProps && prevProps.title > nextProps.title)
-    return 'Hey dude, I think you must to increase your title.';
+const costShouldIncrease = ({ prevProps, nextProps, name }) => {
+  if (name === 'TextBox' && prevProps && prevProps.cost > nextProps.cost)
+    return 'Hey dude, I think you must to increase your cost.';
 
   return false;
 };
 
 const validationFns = [
-  titleIsVerySmallNumber,
-  titleShouldIncrease,
+  costIsVerySmallNumber,
+  costShouldIncrease,
 ];
 
 /../
