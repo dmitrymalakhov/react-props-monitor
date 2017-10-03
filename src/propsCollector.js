@@ -56,15 +56,15 @@ const propsCollector = (type, nextProps, { exclude }) => {
       notNeededSnapshot = R.equals(propsSnapshots[len - 1], nextProps);
 
     if (!notNeededSnapshot) {
-      propsSnapshots.push(R.clone(nextProps));
+      propsSnapshots.push(nextProps);
       window[CHANNEL].props.set(name, propsSnapshots);
     }
   } else {
-    window[CHANNEL].props.set(name, [R.clone(nextProps)]);
+    window[CHANNEL].props.set(name, [nextProps]);
     window[CHANNEL].types.set(name, type.propTypes);
   }
 
-  // broadcast.publish(Array.from(window[CHANNEL].props.keys()));
+  broadcast.publish(Array.from(window[CHANNEL].props.keys()));
 };
 
 const propsFortuneteller = (React, opts = {}) => {
