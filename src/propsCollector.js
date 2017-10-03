@@ -6,10 +6,14 @@
 
 import R from 'ramda';
 import { CHANNEL } from './constants';
+import createBroadcast from './create-broadcast';
+
+const broadcast = createBroadcast();
 
 window[CHANNEL] = {
   props: new Map(),
   types: new Map(),
+  broadcast,
 };
 
 const defaultExclude = [
@@ -52,13 +56,15 @@ const propsCollector = (type, nextProps, { exclude }) => {
       notNeededSnapshot = R.equals(propsSnapshots[len - 1], nextProps);
 
     if (!notNeededSnapshot) {
-      propsSnapshots.push(nextProps);
+      propsSnapshots.push(R.clone(nextProps));
       window[CHANNEL].props.set(name, propsSnapshots);
     }
   } else {
-    window[CHANNEL].props.set(name, [nextProps]);
+    window[CHANNEL].props.set(name, [R.clone(nextProps)]);
     window[CHANNEL].types.set(name, type.propTypes);
   }
+
+  broadcast.publish(Array.from(window[CHANNEL].props.keys()));
 };
 
 const propsFortuneteller = (React, opts = {}) => {

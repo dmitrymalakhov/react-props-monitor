@@ -11,13 +11,15 @@ import { PropsMonitorListStyled } from './styled';
 import { noop } from '../utils';
 
 const propTypes = {
-  components: PropTypes.object,
+  components: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
 };
 
 const defaultProps = {
-  components: new Map(),
+  components: [],
   defaultValue: void 0,
   onChange: noop,
 };
@@ -36,19 +38,14 @@ class PropsMonitorList extends PureComponent {
   _renderPropsMonitorItems() {
     const { components, defaultValue } = this.props;
 
-    const items = [];
-    components.forEach((value, name) => {
-      items.push(
-        <PropsMonitorItem
-          key={name}
-          active={name === defaultValue}
-          name={name}
-          onClick={this._handleChange}
-        />
-      );
-    });
-
-    return items;
+    return components.map(name => (
+      <PropsMonitorItem
+        key={name}
+        active={name === defaultValue}
+        name={name}
+        onClick={this._handleChange}
+      />
+    ));
   }
 
   render() {

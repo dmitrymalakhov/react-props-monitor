@@ -66,6 +66,7 @@ class PropsMonitor extends Component {
       active: false,
       currentComponent: void 0,
       uniqueProps: false,
+      componentsNames: [],
     };
 
     this._handleKeydown = this._handleKeydown.bind(this);
@@ -73,7 +74,17 @@ class PropsMonitor extends Component {
     this._handleChangeUniq = this._handleChangeUniq.bind(this);
   }
 
+  componentWillMount() {
+    const { subscribe } = window[CHANNEL].broadcast;
+    this._unsubscribe = subscribe(componentsNames => {
+      this.setState({
+        componentsNames,
+      });
+    });
+  }
+
   componentDidMount() {
+    if (this._unsubscribe) this._unsubscribe();
     window.addEventListener('keydown', this._handleKeydown);
   }
 
@@ -195,7 +206,7 @@ class PropsMonitor extends Component {
   }
 
   render() {
-    const { active, currentComponent } = this.state;
+    const { active, currentComponent, componentsNames } = this.state;
 
     const tabs = {
       history: this._getHistoryContent(),
@@ -206,7 +217,7 @@ class PropsMonitor extends Component {
       <PropsMonitorStyled active={active}>
         <PropsMonitorList
           defaultValue={currentComponent}
-          components={window[CHANNEL].props}
+          components={componentsNames}
           onChange={this._handleChangeComponent}
         />
         <PropsMonitorTabs tabs={tabs} />

@@ -1,6 +1,6 @@
 {
   "name": "react-props-monitor",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "lib/index.js",
   "license": "MIT",
   "files": [
@@ -12,7 +12,6 @@
     "url": "git@github.com:dmitrymalakhov/react-props-monitor.git"
   },
   "author": "Dmitry Malakhov <dmitrii.malakhov@gmail.com>",
-  "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config ./examples/webpack.config.js",
     "lint": "run-s lint:js lint:style",
@@ -50,6 +49,7 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
+    "events": "^1.1.1",
     "prop-types": "^15.5.10",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
