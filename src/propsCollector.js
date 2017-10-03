@@ -64,7 +64,7 @@ const propsCollector = (type, nextProps, { exclude }) => {
     window[CHANNEL].types.set(name, type.propTypes);
   }
 
-  broadcast.publish(Array.from(window[CHANNEL].props.keys()));
+  // broadcast.publish(Array.from(window[CHANNEL].props.keys()));
 };
 
 const propsFortuneteller = (React, opts = {}) => {

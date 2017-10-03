@@ -75,12 +75,12 @@ class PropsMonitor extends Component {
   }
 
   componentWillMount() {
-    const { subscribe } = window[CHANNEL].broadcast;
-    this._unsubscribe = subscribe(componentsNames => {
-      this.setState({
-        componentsNames,
-      });
-    });
+    // const { subscribe } = window[CHANNEL].broadcast;
+    // this._unsubscribe = subscribe(componentsNames => {
+    //   this.setState({
+    //     componentsNames,
+    //   });
+    // });
   }
 
   componentDidMount() {
