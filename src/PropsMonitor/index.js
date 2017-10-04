@@ -72,24 +72,44 @@ class PropsMonitor extends Component {
     this._handleKeydown = this._handleKeydown.bind(this);
     this._handleChangeComponent = this._handleChangeComponent.bind(this);
     this._handleChangeUniq = this._handleChangeUniq.bind(this);
+    this._checkChannel = this._checkChannel.bind(this);
+
+    this._timer = null;
   }
 
   componentWillMount() {
-    const { subscribe } = window[CHANNEL].broadcast;
-    this._unsubscribe = subscribe(componentsNames => {
-      this.setState({
-        componentsNames,
-      });
-    });
+    this._checkChannel();
   }
 
   componentDidMount() {
-    if (this._unsubscribe) this._unsubscribe();
     window.addEventListener('keydown', this._handleKeydown);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.active !== this.state.active) {
+      if (this.state.active)
+        this._timer = setTimeout(this._checkChannel, 200);
+      else
+        clearTimeout(this._timer);
+    }
+  }
+
   componentWillUnmount() {
+    clearTimeout(this._timer);
     window.removeEventListener('keydown', this._handleKeydown);
+  }
+
+  _checkChannel() {
+    const propsHistory = window[CHANNEL].props;
+
+    if (propsHistory.size !== this.state.componentsNames.length) {
+      this.setState({
+        componentsNames: Array.from(propsHistory.keys()),
+      });
+    }
+
+    if (this.state.active)
+      this._timer = setTimeout(this._checkChannel, 200);
   }
 
   _getHistoryContent() {

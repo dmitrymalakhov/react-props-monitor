@@ -6,14 +6,10 @@
 
 import R from 'ramda';
 import { CHANNEL } from './constants';
-import createBroadcast from './create-broadcast';
-
-const broadcast = createBroadcast();
 
 window[CHANNEL] = {
   props: new Map(),
   types: new Map(),
-  broadcast,
 };
 
 const defaultExclude = [
@@ -63,8 +59,6 @@ const propsCollector = (type, nextProps, { exclude }) => {
     window[CHANNEL].props.set(name, [nextProps]);
     window[CHANNEL].types.set(name, type.propTypes);
   }
-
-  broadcast.publish(Array.from(window[CHANNEL].props.keys()));
 };
 
 const propsFortuneteller = (React, opts = {}) => {
