@@ -49,7 +49,6 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
-    "events": "^1.1.1",
     "prop-types": "^15.5.10",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
