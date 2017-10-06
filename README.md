@@ -1,6 +1,6 @@
 # react-props-monitor
 
-In-depth review props in any React app.
+In-depth checking props in runtime for any React app.
 
 [![npm](https://img.shields.io/npm/dm/react-props-monitor.svg)](https://www.npmjs.com/package/react-props-monitor)
 
