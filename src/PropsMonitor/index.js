@@ -201,7 +201,12 @@ class PropsMonitor extends Component {
             defaultChecked={uniqueProps}
             onChange={this._handleChangeUniq}
           />
-          {`Problems: ${problemCount}`}
+          <span>
+            {`Call: ${propsList.length}`}
+          </span>
+          <span>
+            {`Problems: ${problemCount}`}
+          </span>
         </PropsMonitorToolbarStyled>
         {propsList}
       </ContentStyled>
