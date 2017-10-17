@@ -4,7 +4,7 @@
 
 'use strict';
 
-import R from 'ramda';
+import { flatten, equals } from 'ramda';
 import { CHANNEL } from './constants';
 
 window[CHANNEL] = {
@@ -49,7 +49,7 @@ const propsCollector = (type, nextProps, { exclude }) => {
   if (window[CHANNEL].props.has(name)) {
     const propsSnapshots = window[CHANNEL].props.get(name),
       len = propsSnapshots.length,
-      notNeededSnapshot = R.equals(propsSnapshots[len - 1], nextProps);
+      notNeededSnapshot = equals(propsSnapshots[len - 1], nextProps);
 
     if (!notNeededSnapshot) {
       propsSnapshots.push(nextProps);
@@ -68,7 +68,7 @@ const propsFortuneteller = (React, opts = {}) => {
     // eslint-disable-next-line no-param-reassign
     React.createElement = (type, props, ...children) => {
       propsCollector(type, props, opts);
-      return createElement.apply(React, R.flatten([type, props, children]));
+      return createElement.apply(React, flatten([type, props, children]));
     };
   }
 

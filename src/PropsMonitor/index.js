@@ -8,7 +8,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import JSONTree from 'react-json-tree';
 import styled from 'styled-components';
-import R from 'ramda';
+
+import {
+  uniq,
+  compose,
+  juxt,
+  filter,
+  concat,
+  map,
+} from 'ramda';
+
 import PropsMonitorList from './PropsMonitorList';
 import PropsMonitorTabs from './PropsMonitorTabs';
 import PropMonitorCheckbox from './PropMonitorCheckbox';
@@ -126,13 +135,13 @@ class PropsMonitor extends Component {
     const fns = [something => something];
 
     if (uniqueProps)
-      fns.push(R.uniq);
+      fns.push(uniq);
 
     const props = window[CHANNEL].props.get(currentComponent),
       types = window[CHANNEL].types.get(currentComponent);
 
     const filtered =
-      R.compose(...fns)(props);
+      compose(...fns)(props);
 
     let problemCount = 0,
       prevProps = null;
@@ -164,9 +173,9 @@ class PropsMonitor extends Component {
         name: currentComponent,
       };
 
-      const validator = R.juxt(this.props.validation),
-        filterNotValid = value => R.filter(item => item, value),
-        concatWithAnotherErrors = value => R.concat(errorMessages, value);
+      const validator = juxt(this.props.validation),
+        filterNotValid = value => filter(item => item, value),
+        concatWithAnotherErrors = value => concat(errorMessages, value);
 
       const createMessage = msg => (
         <PropsMonitorProblemMessageStyled key={msg}>
@@ -174,9 +183,9 @@ class PropsMonitor extends Component {
         </PropsMonitorProblemMessageStyled>
       );
 
-      const mapMessageToComponent = errors => R.map(createMessage, errors);
+      const mapMessageToComponent = errors => map(createMessage, errors);
 
-      const errors = R.compose(
+      const errors = compose(
         mapMessageToComponent,
         concatWithAnotherErrors,
         filterNotValid,
