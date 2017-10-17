@@ -60,8 +60,13 @@ const costIsVerySmallNumber = ({ nextProps }) => {
 };
 
 const costShouldIncrease = ({ prevProps, nextProps, name }) => {
-  if (name === 'TextBox' && prevProps && prevProps.cost > nextProps.cost)
+  if (
+    name === 'TextBox' &&
+    prevProps &&
+    prevProps.cost > nextProps.cost
+  ) {
     return 'Hey dude, I think you must to increase your cost.';
+  }
 
   return false;
 };
