@@ -7,12 +7,13 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import TextBox from './components/TextBox';
+import ExtraTextBox from './components/ExtraTextBox';
 import initPropsMonitor, { PropsMonitor } from '../src';
 
 initPropsMonitor(React);
 
-const titleIsVerySmallNumber = ({ nextProps }) => {
-  if (nextProps.title < 2000000)
+const titleIsVerySmallNumber = ({ nextProps, name }) => {
+  if (nextProps.title < 2000000 && name === 'ExtraTextBox')
     return 'Caution your title prop is small a number.';
 
   return false;
@@ -25,12 +26,26 @@ const titleShouldIncrease = ({ prevProps, nextProps }) => {
   return false;
 };
 
+const groupExtraComponents = ({ name }) =>
+  /^Extra/.test(name)
+    ? { title: 'Extra', key: 'extra' }
+    : null;
+
 const validationFns = [
   titleIsVerySmallNumber,
   titleShouldIncrease,
 ];
 
+const groupsFns = [
+  groupExtraComponents,
+];
+
 const RootStyled = styled.div``;
+
+const TextBoxContainerStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 class Root extends PureComponent {
   constructor(props) {
@@ -73,12 +88,15 @@ class Root extends PureComponent {
   render() {
     return (
       <RootStyled>
-        <TextBox title={this.state.title} />
+        <TextBoxContainerStyled>
+          <TextBox title={this.state.title} />
+          <ExtraTextBox title={this.state.title} />
+        </TextBoxContainerStyled>
         <button onClick={this._handleClickBoolean}>SetBoolean</button>
         <button onClick={this._handleClickString}>SetString</button>
         <button onClick={this._handleClickNumber0}>SetNumber0</button>
         <button onClick={this._handleClickNumber1}>SetNumber1</button>
-        <PropsMonitor validation={validationFns} />
+        <PropsMonitor validation={validationFns} groups={groupsFns} />
       </RootStyled>
     );
   }

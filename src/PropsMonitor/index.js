@@ -240,7 +240,8 @@ class PropsMonitor extends Component {
   }
 
   render() {
-    const { active, currentComponent, componentsNames } = this.state;
+    const { active, currentComponent, componentsNames } = this.state,
+      { groups } = this.props;
 
     const tabs = {
       history: this._getHistoryContent(),
@@ -250,6 +251,7 @@ class PropsMonitor extends Component {
     return (
       <PropsMonitorStyled active={active}>
         <PropsMonitorList
+          groups={groups}
           defaultValue={currentComponent}
           components={componentsNames}
           onChange={this._handleChangeComponent}

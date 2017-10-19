@@ -31,7 +31,7 @@ const PropsMonitorTabStyled = styled.a`
   text-align: center;
   user-select: none;
   position: relative;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.25;
   text-transform: uppercase;
   min-height: 48px;

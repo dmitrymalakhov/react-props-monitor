@@ -19,7 +19,7 @@ const PropsMonitorItemButtonStyled = styled.a`
   cursor: pointer;
   display: block;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 8px 16px;
   transition-property: background-color;
   transition-duration: 300ms;
