@@ -89,6 +89,36 @@ render() {
 
 ```
 
+## Grouping components
+
+For a list of components you can add grouping
+
+![react-props-monitor](docs/groups.png)
+
+```javascript
+
+const groupExtraComponents = ({ name }) =>
+  /^Extra/.test(name)
+    ? `Extra`
+    : null;
+
+const groupsFns = [
+  groupExtraComponents,
+];
+
+/../
+
+render() {
+  return (
+    <div>
+      <Root />
+      <PropsMonitor groups={groupsFns} />
+    </div>
+  );
+}
+
+```
+
 ### Coming soon
 
 - define and lock props
