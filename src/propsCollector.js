@@ -65,7 +65,7 @@ const propsCollector = (type, nextProps, { exclude }) => {
   }
 };
 
-const propsFortuneteller = (React, opts = {}) => {
+const initPropsMonitor = (React, opts = {}) => {
   const createElement = React.createElement;
 
   if (createElement) {
@@ -79,4 +79,4 @@ const propsFortuneteller = (React, opts = {}) => {
   return React;
 };
 
-export default propsFortuneteller;
+export default initPropsMonitor;
