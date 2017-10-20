@@ -28,7 +28,7 @@ const titleShouldIncrease = ({ prevProps, nextProps }) => {
 
 const groupExtraComponents = ({ name }) =>
   /^Extra/.test(name)
-    ? { title: 'Extra', key: 'extra' }
+    ? `Extra`
     : null;
 
 const validationFns = [

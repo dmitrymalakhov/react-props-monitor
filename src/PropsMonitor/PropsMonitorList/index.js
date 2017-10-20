@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import PropsMonitorItem from './PropsMonitorItem';
 import PropsMonitorGroup from './PropsMonitorGroup';
 import { PropsMonitorListStyled } from './styled';
-import { noop } from '../utils';
+import { noop, camelize } from '../utils';
 
 const propTypes = {
   components: PropTypes.arrayOf(
@@ -74,18 +74,26 @@ class PropsMonitorList extends PureComponent {
         let isGroupedComponent = false;
 
         groups.forEach(groupFn => {
-          const groupOpt = groupFn({ name: componentName });
+          const groupTitle = groupFn({ name: componentName });
 
-          if (groupOpt) {
-            isGroupedComponent = true;
+          if (groupTitle) {
+            if (typeof groupTitle === 'string') {
+              const groupKey = camelize(groupTitle);
+              
+              isGroupedComponent = true;
 
-            if (groupedComponents.has(groupOpt.key)) {
-              groupedComponents.get(groupOpt.key).components.push(componentName);
+              if (groupedComponents.has(groupKey)) {
+                groupedComponents.get(groupKey).components.push(componentName);
+              } else {
+                groupedComponents.set(groupKey, {
+                  components: [componentName],
+                  title: groupTitle,
+                });
+              }
             } else {
-              groupedComponents.set(groupOpt.key, {
-                components: [componentName],
-                title: groupOpt.title,
-              });
+              console.warn(
+                `[REACT-PROPS-MONITOR] Warning: Wrong type of title group: supplied ${groupTitle}, but expected string.`
+              );
             }
           }
         });

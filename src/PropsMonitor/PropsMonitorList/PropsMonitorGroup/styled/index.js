@@ -3,3 +3,6 @@ export { default as PropsMonitorGroupMenuStyled }
 
 export { default as PropsMonitorGroupTitleStyled }
   from './PropsMonitorGroupTitleStyled';
+
+export { default as PropsMonitorGroupContentStyled }
+  from './PropsMonitorGroupContentStyled';

@@ -17,6 +17,9 @@ const PropsMonitorGroupTitleStyled = styled.div`
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.5px;
+  cursor: pointer;
 `;
+
+PropsMonitorGroupTitleStyled.displayName = 'PropsMonitorGroupTitleStyled';
 
 export default PropsMonitorGroupTitleStyled;

@@ -14,4 +14,6 @@ const PropsMonitorGroupMenuStyled = styled.menu`
   padding-top: 0;
 `;
 
+PropsMonitorGroupMenuStyled.displayName = 'PropsMonitorGroupMenuStyled';
+
 export default PropsMonitorGroupMenuStyled;
