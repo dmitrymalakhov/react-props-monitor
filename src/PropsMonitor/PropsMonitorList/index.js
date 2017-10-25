@@ -41,13 +41,14 @@ class PropsMonitorList extends PureComponent {
   }
 
   _renderItemsBy(components) {
-    const { defaultValue } = this.props;
+    const { defaultValue, propsCounter } = this.props;
 
     return components.map(name => (
       <PropsMonitorItem
         key={name}
         active={name === defaultValue}
         name={name}
+        countProps={propsCounter[name]}
         onClick={this._handleChange}
       />
     ));
@@ -91,6 +92,7 @@ class PropsMonitorList extends PureComponent {
                 });
               }
             } else {
+              // eslint-disable-next-line no-console
               console.warn(
                 `[REACT-PROPS-MONITOR] Warning: Wrong type of title group: supplied ${groupTitle}, but expected string.`
               );

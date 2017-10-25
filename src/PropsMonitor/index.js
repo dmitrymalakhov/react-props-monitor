@@ -76,6 +76,7 @@ class PropsMonitor extends Component {
       currentComponent: void 0,
       uniqueProps: false,
       componentsNames: [],
+      propsCounter: {},
     };
 
     this._handleKeydown = this._handleKeydown.bind(this);
@@ -111,11 +112,28 @@ class PropsMonitor extends Component {
   _checkChannel() {
     const propsHistory = window[CHANNEL].props;
 
+    const newState = {
+      propsCounter: {},
+    };
+
+    let neededUpdate = false;
+
     if (propsHistory.size !== this.state.componentsNames.length) {
-      this.setState({
-        componentsNames: Array.from(propsHistory.keys()),
-      });
+      neededUpdate = true;
+      newState.componentsNames = Array.from(propsHistory.keys());
     }
+
+    propsHistory.forEach((props, componentName) => {
+      const componentPropsCount = this.state.propsCounter[componentName];
+
+      if (componentPropsCount !== props.length)
+        neededUpdate = true;
+
+      newState.propsCounter[componentName] = props.length;
+    });
+
+    if (neededUpdate)
+      this.setState(newState);
 
     if (this.state.active)
       this._timer = setTimeout(this._checkChannel, 200);
@@ -240,7 +258,7 @@ class PropsMonitor extends Component {
   }
 
   render() {
-    const { active, currentComponent, componentsNames } = this.state,
+    const { active, currentComponent, componentsNames, propsCounter } = this.state,
       { groups } = this.props;
 
     const tabs = {
@@ -254,6 +272,7 @@ class PropsMonitor extends Component {
           groups={groups}
           defaultValue={currentComponent}
           components={componentsNames}
+          propsCounter={propsCounter}
           onChange={this._handleChangeComponent}
         />
         <PropsMonitorTabs tabs={tabs} />

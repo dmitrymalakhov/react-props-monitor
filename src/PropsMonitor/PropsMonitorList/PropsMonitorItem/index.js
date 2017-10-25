@@ -17,12 +17,14 @@ import { noop } from '../../utils';
 const propTypes = {
   name: PropTypes.string,
   active: PropTypes.bool,
+  countProps: PropTypes.number,
   onClick: PropTypes.func,
 };
 
 const defaultProps = {
   name: '',
   active: false,
+  countProps: 0,
   onClick: noop,
 };
 
@@ -39,7 +41,7 @@ class PropsMonitorList extends PureComponent {
   }
 
   render() {
-    const { name, active } = this.props;
+    const { name, active, countProps } = this.props;
 
     return (
       <PropsMonitorItemStyled>
@@ -47,7 +49,7 @@ class PropsMonitorList extends PureComponent {
           active={active}
           onClick={this._handleClick}
         >
-          { name }
+          { `${name} (${countProps})` }
         </PropsMonitorItemButtonStyled>
       </PropsMonitorItemStyled>
     );
