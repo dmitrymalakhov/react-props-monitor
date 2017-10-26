@@ -19,6 +19,9 @@ const propTypes = {
   groups: PropTypes.arrayOf(
     PropTypes.func,
   ),
+  propsCounter: PropTypes.objectOf(
+    PropTypes.number,
+  ),
   onChange: PropTypes.func,
 };
 
@@ -26,6 +29,7 @@ const defaultProps = {
   components: [],
   defaultValue: void 0,
   groups: void 0,
+  propsCounter: 0,
   onChange: noop,
 };
 
@@ -94,14 +98,18 @@ class PropsMonitorList extends PureComponent {
             } else {
               // eslint-disable-next-line no-console
               console.warn(
-                `[REACT-PROPS-MONITOR] Warning: Wrong type of title group: supplied ${groupTitle}, but expected string.`
+                `[REACT-PROPS-MONITOR] Warning:
+                  Wrong type of title group:
+                   supplied ${groupTitle}, but expected string.`
               );
             }
           }
         });
 
-        if (!isGroupedComponent)
-          groupedComponents.get(UNGROUPED_GROUP.key).components.push(componentName);
+        if (!isGroupedComponent) {
+          groupedComponents.get(UNGROUPED_GROUP.key)
+            .components.push(componentName);
+        }
       });
 
       return Array.from(groupedComponents.keys()).map(groupName => {

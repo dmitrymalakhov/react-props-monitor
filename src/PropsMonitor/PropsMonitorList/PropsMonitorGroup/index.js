@@ -50,8 +50,7 @@ class PropsMonitorGroup extends Component {
   }
 
   render() {
-    const { title, children } = this.props,
-      { expanded } = this.state;
+    const { title, children } = this.props;
 
     const amountItems = React.Children.count(children);
 
@@ -66,7 +65,7 @@ class PropsMonitorGroup extends Component {
       </PropsMonitorGroupMenuStyled>
     );
   }
-};
+}
 
 PropsMonitorGroup.propTypes = propTypes;
 PropsMonitorGroup.defaultProps = defaultProps;

@@ -61,10 +61,16 @@ const propTypes = {
   validation: PropTypes.arrayOf(
     PropTypes.func,
   ),
+  groups: PropTypes.arrayOf(
+    PropTypes.func,
+  ),
+  syncTimeout: PropTypes.number,
 };
 
 const defaultProps = {
   validation: [],
+  groups: [],
+  syncTimeout: 200,
 };
 
 class PropsMonitor extends Component {
@@ -98,7 +104,7 @@ class PropsMonitor extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.active !== this.state.active) {
       if (this.state.active)
-        this._timer = setTimeout(this._checkChannel, 200);
+        this._timer = setTimeout(this._checkChannel, this.props.syncTimeout);
       else
         clearTimeout(this._timer);
     }
@@ -258,8 +264,14 @@ class PropsMonitor extends Component {
   }
 
   render() {
-    const { active, currentComponent, componentsNames, propsCounter } = this.state,
-      { groups } = this.props;
+    const {
+      active,
+      currentComponent,
+      componentsNames,
+      propsCounter,
+    } = this.state;
+
+    const { groups } = this.props;
 
     const tabs = {
       history: this._getHistoryContent(),
