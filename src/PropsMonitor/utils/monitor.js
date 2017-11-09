@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types';
 
 import {
-  uniq,
   compose,
   juxt,
   filter,
@@ -10,20 +9,13 @@ import {
 } from 'ramda';
 
 export const checkPropsErrors = (componentName, props, opt) => {
-  const { propTypes, validation, onlyUniq } = opt,
-    filteredFns = [something => something];
-
-  if (onlyUniq)
-    filteredFns.push(uniq);
-
-  const filteredProps =
-    compose(...filteredFns)(props);
+  const { propTypes, validation } = opt;
 
   let prevProps = null;
   
   const errors = {};
 
-  filteredProps.forEach((data, idx) => {
+  props.forEach((data, idx) => {
     const propTypesErrorMessages = [];
 
     /* eslint-disable no-console */

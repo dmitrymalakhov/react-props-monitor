@@ -12,9 +12,6 @@ import styled from 'styled-components';
 import {
   uniq,
   compose,
-  juxt,
-  filter,
-  concat,
   map,
 } from 'ramda';
 
@@ -147,7 +144,8 @@ class PropsMonitor extends Component {
   }
 
   _getHistoryContent() {
-    const { currentComponent, uniqueProps } = this.state;
+    const { currentComponent, uniqueProps } = this.state,
+      { validation } = this.props;
 
     if (!currentComponent) {
       return (
@@ -165,63 +163,33 @@ class PropsMonitor extends Component {
     const props = window[CHANNEL].props.get(currentComponent),
       types = window[CHANNEL].types.get(currentComponent);
 
-    const filtered =
-      compose(...fns)(props);
+    const filteredProps = compose(...fns)(props);
 
-    let problemCount = 0,
-      prevProps = null;
-
-    const propsList = filtered.map((data, idx) => {
-      const errorMessages = [];
-
-      /* eslint-disable no-console */
-      if (types) {
-        const _originalConsoleError = console.error,
-          hash = Math.random();
-
-        console.error = e => { errorMessages.push(e.replace(hash, '')); };
-
-        PropTypes.checkPropTypes(
-          types,
-          data,
-          'prop',
-          `${currentComponent}${hash}`,
-        );
-
-        console.error = _originalConsoleError;
+    const errors = checkPropsErrors(
+      currentComponent,
+      filteredProps,
+      {
+        propTypes: types,
+        validation,
       }
-      /* eslint-enable no-console */
+    );
 
-      const opt = {
-        prevProps,
-        nextProps: data,
-        name: currentComponent,
-      };
+    let problemCount = 0;
 
-      const validator = juxt(this.props.validation),
-        filterNotValid = value => filter(item => item, value),
-        concatWithAnotherErrors = value => concat(errorMessages, value);
-
-      const createMessage = msg => (
-        <PropsMonitorProblemMessageStyled key={msg}>
+    const propsList = filteredProps.map((data, idx) => {
+      const createMessage = (msg, idx) => (
+        <PropsMonitorProblemMessageStyled key={idx}>
           {msg}
         </PropsMonitorProblemMessageStyled>
       );
 
-      const mapMessageToComponent = errors => map(createMessage, errors);
+      const currentErrors = errors[idx];
 
-      const errors = compose(
-        mapMessageToComponent,
-        concatWithAnotherErrors,
-        filterNotValid,
-      )(validator(opt));
-
-      problemCount += errors.length;
-      prevProps = data;
+      problemCount += currentErrors.length;
 
       return (
         <div key={idx}>
-          {errors}
+          {map(createMessage, currentErrors)}
           <JSONTree theme={theme} data={data} />
         </div>
       );
