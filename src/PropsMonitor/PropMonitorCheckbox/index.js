@@ -6,7 +6,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { noop } from '../utils';
+import { noop } from '../utils/misc';
 
 const propTypes = {
   defaultChecked: PropTypes.bool,

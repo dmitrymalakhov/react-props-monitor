@@ -12,7 +12,7 @@ import {
   PropsMonitorItemButtonStyled,
 } from './styled';
 
-import { noop } from '../../utils';
+import { noop } from '../../utils/misc';
 
 const propTypes = {
   name: PropTypes.string,

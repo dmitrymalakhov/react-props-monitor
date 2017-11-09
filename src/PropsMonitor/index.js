@@ -28,6 +28,8 @@ import {
   PropsMonitorProblemMessageStyled,
 } from './styled';
 
+import { checkPropsErrors } from './utils/monitor';
+
 import { CHANNEL } from '../constants';
 
 const KEY_CODE_I = 73;
@@ -89,7 +91,6 @@ class PropsMonitor extends Component {
     this._handleChangeComponent = this._handleChangeComponent.bind(this);
     this._handleChangeUniq = this._handleChangeUniq.bind(this);
     this._checkChannel = this._checkChannel.bind(this);
-
     this._timer = null;
   }
 
