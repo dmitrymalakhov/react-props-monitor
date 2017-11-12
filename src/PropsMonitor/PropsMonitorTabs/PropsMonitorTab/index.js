@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { PropsMonitorTabStyled } from './styled';
-import { noop } from '../../utils';
+import { noop } from '../../utils/misc';
 
 const propTypes = {
   name: PropTypes.string,

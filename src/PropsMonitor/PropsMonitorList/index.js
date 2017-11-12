@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import PropsMonitorItem from './PropsMonitorItem';
 import PropsMonitorGroup from './PropsMonitorGroup';
 import { PropsMonitorListStyled } from './styled';
-import { noop, camelize } from '../utils';
+import { noop, camelize } from '../utils/misc';
 
 const propTypes = {
   components: PropTypes.arrayOf(
